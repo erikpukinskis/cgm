@@ -1,4 +1,8 @@
+# typed: true
+
 class ApplicationController < ActionController::Base
+  extend T::Sig
+
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -6,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   private
 
+  sig { void }
   def authenticate_user!
     unless user_signed_in?
       session[:return_to] = request.fullpath
@@ -13,6 +18,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  sig { returns(T::Boolean) }
   def user_signed_in?
     session[:user_id].present?
   end

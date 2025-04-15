@@ -1,0 +1,11 @@
+--dir=.
+--ignore=.git
+--ignore=vendor
+--ignore=node_modules
+--ignore=tmp
+--ignore=log
+--ignore=public
+--ignore=bin
+--ignore=storage
+--ignore=db/schema.rb
+--ignore=db/queue_schema.rb
