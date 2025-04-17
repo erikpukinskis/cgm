@@ -25,9 +25,13 @@
   <body>
     <nav>
       <ul>
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Join", auth_join_path %></li>
-        <li><%= link_to "Sign in", auth_sign_in_path %></li>
+        <% if session[:member_email] %>
+          <li><%= session[:member_email] %></li>
+          <li><%= link_to "Sign out", auth_sign_out_path %></li>
+        <% else %>
+          <li><%= link_to "Join", auth_join_path %></li>
+          <li><%= link_to "Sign in", auth_sign_in_path %></li>
+        <% end %>
       </ul>
     </nav>
 
