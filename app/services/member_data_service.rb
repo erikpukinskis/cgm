@@ -1,3 +1,4 @@
+require "pry"
 HIGH_VALUE = 180
 LOW_VALUE = 70
 
@@ -47,12 +48,8 @@ class MemberDataService
     }
 
     new_metrics[:average_glucose_level] = add_to_average(metrics[:average_glucose_level], metrics[:num_measurements], measurement.value)
-
-    if measurement.value < LOW_VALUE
-      new_metrics[:time_below_range] = add_to_time(metrics[:time_below_range], metrics[:num_measurements])
-    elsif measurement.value > HIGH_VALUE
-      new_metrics[:time_above_range] = add_to_time(week[:time_above_range], metrics[:num_measurements])
-    end
+    new_metrics[:time_below_range] = add_to_average(metrics[:time_below_range], metrics[:num_measurements], measurement.value < LOW_VALUE)
+    new_metrics[:time_above_range] = add_to_average(metrics[:time_above_range], metrics[:num_measurements], measurement.value > HIGH_VALUE)
 
     new_metrics[:num_measurements] = metrics[:num_measurements] + 1
 
@@ -60,19 +57,16 @@ class MemberDataService
   end
 
   def add_to_average(average, previous_count, new_value)
+    if new_value == true
+      new_value = 1.0
+    elsif new_value == false
+      new_value = 0.0
+    end
+
     previous_average = average || 0
     new_count = previous_count + 1
-    new_average = previous_average * previous_count + new_value / new_count
+    new_average = (previous_average * previous_count + new_value) / new_count
 
     new_average
-  end
-
-  def add_to_time(percent_of_time, previous_count)
-    previous_days = (percent_of_time || 0) * previous_count
-    new_days = previous_days + 1
-    new_count = previous_count + 1
-    new_percent = new_days / new_count
-
-    new_percent
   end
 end
