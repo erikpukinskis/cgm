@@ -1,4 +1,4 @@
-class MetricsHelper
+module MetricsHelper
   def self.add_to_average(average:, previous_count:, new_value:)
     if new_value == true
       new_value = 1.0

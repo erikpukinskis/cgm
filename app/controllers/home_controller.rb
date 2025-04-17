@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
+    @member_data = MemberDataService.new(@member)
+
     respond_to do |format|
       # When we redirect, from a turbo_stream request, Turbo will pull the page
       # we redirected to with an accept: text/vnd.turbo-stream.html header. If

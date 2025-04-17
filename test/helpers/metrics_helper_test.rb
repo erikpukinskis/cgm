@@ -1,10 +1,10 @@
 require "test_helper"
 
 class MetricHelperTest < ActiveSupport::TestCase
-test "add number to nil" do
-  new_average = MetricsHelper.add_to_average(average: nil, previous_count: 0, new_value: 40)
-  assert_equal 40, new_average
-end
+  test "add number to nil" do
+    new_average = MetricsHelper.add_to_average(average: nil, previous_count: 0, new_value: 40)
+    assert_equal 40, new_average
+  end
 
   test "add number to number" do
     new_average = MetricsHelper.add_to_average(average: 2, previous_count: 1, new_value: 1)
