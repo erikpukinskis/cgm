@@ -43,8 +43,8 @@ class MemberDataServiceTest < ActiveSupport::TestCase
     member = members(:one)
     member.measurements.create!(value: 40, tested_at: 1.day.ago, tz_offset: "+06:00")
     member.measurements.create!(value: 100, tested_at: 2.days.ago, tz_offset: "+06:00")
-    # member.measurements.create!(value: 190, tested_at: 10.days.ago, tz_offset: "+06:00")
-    # member.measurements.create!(value: 170, tested_at: 10.days.ago, tz_offset: "+06:00")
+    member.measurements.create!(value: 190, tested_at: 10.days.ago, tz_offset: "+06:00")
+    member.measurements.create!(value: 170, tested_at: 10.days.ago, tz_offset: "+06:00")
     metrics = MemberDataService.new(member).glucose_metrics
 
     assert_equal({
@@ -54,11 +54,11 @@ class MemberDataServiceTest < ActiveSupport::TestCase
       time_above_range: 0
     }, metrics[:week])
 
-    # assert_equal({
-    #   num_measurements: 4,
-    #   average_glucose_level: 125,
-    #   time_below_range: 0.25,
-    #   time_above_range: 0.25
-    # }, metrics[:month])
+    assert_equal({
+      num_measurements: 4,
+      average_glucose_level: 125,
+      time_below_range: 0.25,
+      time_above_range: 0.25
+    }, metrics[:month])
   end
 end

@@ -63,7 +63,7 @@ class MemberDataService
       new_value = 0.0
     end
 
-    previous_average = average || 0
+    previous_average = average ? average.to_f : 0.0
     new_count = previous_count + 1
     new_average = (previous_average * previous_count + new_value) / new_count
 
