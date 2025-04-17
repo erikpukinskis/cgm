@@ -47,26 +47,21 @@ class MemberDataService
       time_below_range: 0
     }
 
-    new_metrics[:average_glucose_level] = add_to_average(metrics[:average_glucose_level], metrics[:num_measurements], measurement.value)
-    new_metrics[:time_below_range] = add_to_average(metrics[:time_below_range], metrics[:num_measurements], measurement.value < LOW_VALUE)
-    new_metrics[:time_above_range] = add_to_average(metrics[:time_above_range], metrics[:num_measurements], measurement.value > HIGH_VALUE)
+    new_metrics[:average_glucose_level] = MetricsHelper.add_to_average(
+      average: metrics[:average_glucose_level],
+      previous_count: metrics[:num_measurements],
+      new_value: measurement.value)
+    new_metrics[:time_below_range] = MetricsHelper.add_to_average(
+      average: metrics[:time_below_range],
+      previous_count: metrics[:num_measurements],
+      new_value: measurement.value < LOW_VALUE)
+    new_metrics[:time_above_range] = MetricsHelper.add_to_average(
+      average: metrics[:time_above_range],
+      previous_count: metrics[:num_measurements],
+      new_value: measurement.value > HIGH_VALUE)
 
     new_metrics[:num_measurements] = metrics[:num_measurements] + 1
 
     new_metrics
-  end
-
-  def add_to_average(average, previous_count, new_value)
-    if new_value == true
-      new_value = 1.0
-    elsif new_value == false
-      new_value = 0.0
-    end
-
-    previous_average = average ? average.to_f : 0.0
-    new_count = previous_count + 1
-    new_average = (previous_average * previous_count + new_value) / new_count
-
-    new_average
   end
 end
