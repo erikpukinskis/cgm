@@ -10,7 +10,7 @@ class AuthController < ApplicationController
       session[:member_id] = @member.id
       redirect_to root_path, notice: "Welcome! Your account has been created."
     else
-      render :join_form, status: :unprocessable_entity
+      render status: :unprocessable_entity
     end
   end
 

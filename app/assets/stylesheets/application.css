@@ -75,3 +75,21 @@
 .button:hover, .actions input[type="submit"]:hover {
    background-color: #666;
 }
+
+ul {
+   padding: 0
+}
+
+.error-messages {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   max-width: 500px;
+}
+
+.error-message {
+   color: white;
+   background: rgb(255, 137, 122);
+   padding: 10px;
+   border-radius: 5px;  
+}

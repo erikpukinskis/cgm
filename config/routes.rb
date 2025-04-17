@@ -14,5 +14,7 @@ Rails.application.routes.draw do
 
   # Auth
   get "auth/join", to: "auth#join_form"
+  post "auth/join", to: "auth#join"
   get "auth/sign_in", to: "auth#sign_in_form"
+  post "auth/sign_in", to: "auth#sign_in"
 end
