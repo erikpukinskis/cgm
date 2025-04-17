@@ -23,6 +23,14 @@
   </head>
 
   <body>
+    <nav>
+      <ul>  
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Join", auth_join_path %></li>
+        <li><%= link_to "Sign in", auth_sign_in_path %></li>
+      </ul>
+    </nav>
+
     <%= yield %>
   </body>
 </html>

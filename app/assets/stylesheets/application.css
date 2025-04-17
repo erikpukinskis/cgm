@@ -8,3 +8,70 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+ body {
+    font-family: 'Inter', sans-serif;
+    margin: 0px 20px 100px 20px
+ }
+
+ p {
+   line-height: 1.5;
+ }
+
+ h1 {
+   font-weight: normal;
+   margin: 10px 0 15px 0;
+ }
+
+ nav {
+    text-align: right;
+    padding: 10px;
+ }
+
+ nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+ }
+
+ nav li {
+    display: inline-block;
+    margin-left: 10px;
+ }
+
+.field-set {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   max-width: 300px;
+}
+
+.field {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+}
+
+.field input {
+   font-size: 1em;
+   padding: 5px;
+}
+
+.actions {
+   margin-top: 20px;
+}
+
+.button, .actions input[type="submit"] {
+   font-size: 1em;
+   border: none;
+   padding: 10px 15px;
+   background-color: #000;
+   color: #fff;
+   cursor: pointer;
+   border-radius: 5px;
+   text-decoration: none;
+}
+
+.button:hover, .actions input[type="submit"]:hover {
+   background-color: #666;
+}

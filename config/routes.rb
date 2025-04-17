@@ -11,4 +11,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  # Auth
+  get "auth/join", to: "auth#join_form"
+  get "auth/sign_in", to: "auth#sign_in_form"
 end

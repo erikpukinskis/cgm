@@ -1,0 +1,17 @@
+<h1>Sign in</h1>
+
+<%= form_with url: auth_sign_in_path, class: "auth-form" do |form| %>
+    <div class="field-set">
+    <div class="field">
+        <%= form.label :email %>
+        <%= form.email_field :email %>
+    </div>
+    <div class="field">
+        <%= form.label :password %>
+        <%= form.password_field :password  %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= form.submit "Sign in", class: "button" %>
+  </div>
+<% end %>
