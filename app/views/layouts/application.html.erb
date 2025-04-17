@@ -24,13 +24,23 @@
 
   <body>
     <nav>
-      <ul>  
+      <ul>
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Join", auth_join_path %></li>
         <li><%= link_to "Sign in", auth_sign_in_path %></li>
       </ul>
     </nav>
 
-    <%= yield %>
+    <% if flash.any? %>
+      <ul id="message-set">
+        <% flash.each do |key, value| %>
+          <li class="<%= key %>"><%= value %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <main id="main">
+      <%= yield %>
+    </main>
   </body>
 </html>

@@ -80,7 +80,7 @@ ul {
    padding: 0
 }
 
-.error-messages {
+.message-set {
    display: flex;
    flex-direction: column;
    gap: 10px;
@@ -90,6 +90,13 @@ ul {
 .error-message {
    color: white;
    background: rgb(255, 137, 122);
+   padding: 10px;
+   border-radius: 5px;  
+}
+
+.notice {
+   color: white;
+   background: rgb(55, 185, 128);
    padding: 10px;
    border-radius: 5px;  
 }

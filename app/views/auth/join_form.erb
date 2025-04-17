@@ -1,9 +1,9 @@
 <div id="join_form_container">
   <h1>Join</h1>
 
-  <%= form_with model: @member, url: auth_join_path, class: "auth-form", data: { turbo: false } do |form| %>
+  <%= form_with model: @member, url: auth_join_path, class: "auth-form", data: { turbo: true } do |form| %>
     <% if @member.errors.any? %>
-      <ul class="error-messages">
+      <ul class="message-set">
         <% @member.errors.full_messages.each do |message| %>
           <li class="error-message"><%= message %></li>
         <% end %>
@@ -18,12 +18,12 @@
 
       <div class="field">
         <%= form.label :password %>
-        <%= form.password_field :password, placeholder: "8+ characters" %>
+        <%= form.password_field :password, value: "password", placeholder: "8+ characters" %>
       </div>
 
       <div class="field">
         <%= form.label :password_confirmation %>
-        <%= form.password_field :password_confirmation, placeholder: "Confirm your password" %>
+        <%= form.password_field :password_confirmation, value: "password" %>
       </div>
     </div>
 

@@ -8,9 +8,10 @@ class AuthController < ApplicationController
 
     if @member.save
       session[:member_id] = @member.id
-      redirect_to root_path, notice: "Welcome! Your account has been created."
+      flash[:notice] = "Welcome! Your account has been created."
+      redirect_to root_path, status: :see_other
     else
-      render status: :unprocessable_entity
+      render :join_form, status: :unprocessable_entity
     end
   end
 
