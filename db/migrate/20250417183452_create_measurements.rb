@@ -1,6 +1,6 @@
-class CreateGlucoseMeasurements < ActiveRecord::Migration[8.0]
+class CreateMeasurements < ActiveRecord::Migration[8.0]
   def change
-    create_table :glucose_measurements do |t|
+    create_table :measurements do |t|
       t.references :member, null: false, foreign_key: true
       t.integer :value
       t.datetime :tested_at

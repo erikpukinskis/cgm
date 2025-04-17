@@ -1,5 +1,10 @@
-<h1>Welcome to GCM</h1>
+<% if @member %>
+  <h1>Levels</h1>
+  <%= render "dashboards/glucose_metrics", metrics: @member_data.glucose_metrics %>
+<% else %>
+  <h1>Welcome to GCM</h1>
 
-<p>Need some help with you blood glucose meter or continuous glucose monitor? Look no further!</p>
+  <p>Need some help with you blood glucose meter or continuous glucose monitor? Look no further!</p>
 
-<div class="actions"><a class="button" href="/auth/join">Join</a></div>
+  <div class="actions"><a class="button" href="/auth/join">Join</a></div>
+<% end %>
