@@ -5,7 +5,7 @@ class MemberDataServiceTest < ActiveSupport::TestCase
     member = members(:one)
     metrics = MemberDataService.new(member).glucose_metrics
 
-    assert metrics[:week][:measurements].zero?
+    assert metrics[:week][:num_measurements].zero?
     assert metrics[:week][:average_glucose_level].nil?
     assert metrics[:week][:time_below_range].nil?
     assert metrics[:week][:time_above_range].nil?
@@ -16,10 +16,12 @@ class MemberDataServiceTest < ActiveSupport::TestCase
     member.measurements.create!(value: 40, tested_at: 1.day.ago, tz_offset: "+06:00")
     metrics = MemberDataService.new(member).glucose_metrics
 
-    assert metrics[:week][:measurements] == 1
-    assert metrics[:week][:average_glucose_level] == 100
-    assert metrics[:week][:time_below_range] == 100
-    assert metrics[:week][:time_above_range] == 0
+    assert_equal({
+      num_measurements: 1,
+      average_glucose_level: 40,
+      time_below_range: 1,
+      time_above_range: 0
+    }, metrics[:week])
   end
 
   test "excludes measurements older than 1 week" do
@@ -39,14 +41,14 @@ class MemberDataServiceTest < ActiveSupport::TestCase
     member.measurements.create!(value: 170, tested_at: 10.days.ago, tz_offset: "+06:00")
     metrics = MemberDataService.new(member).glucose_metrics
 
-    assert metrics[:week][:measurements] == 2
+    assert metrics[:week][:num_measurements] == 2
     assert metrics[:week][:average_glucose_level] == 70
-    assert metrics[:week][:time_below_range] == 50
-    assert metrics[:week][:time_above_range] == 50
+    assert metrics[:week][:time_below_range] == 0.5
+    assert metrics[:week][:time_above_range] == 0.5
 
-    assert metrics[:month][:measurements] == 4
+    assert metrics[:month][:num_measurements] == 4
     assert metrics[:month][:average_glucose_level] == 125
-    assert metrics[:month][:time_below_range] == 25
-    assert metrics[:month][:time_above_range] == 25
+    assert metrics[:month][:time_below_range] == 0.25
+    assert metrics[:month][:time_above_range] == 0.25
   end
 end
