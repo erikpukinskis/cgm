@@ -13,9 +13,8 @@
 ActiveRecord::Schema[8.0].define(version: 2025_04_17_183452) do
   create_table "measurements", force: :cascade do |t|
     t.integer "member_id", null: false
-    t.integer "value"
-    t.datetime "tested_at"
-    t.string "tz_offset"
+    t.integer "value", null: false
+    t.datetime "tested_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["member_id"], name: "index_measurements_on_member_id"
