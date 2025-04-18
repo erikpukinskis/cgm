@@ -3,7 +3,7 @@ require "test_helper"
 class MemberDataServiceTest < ActiveSupport::TestCase
   test "returns nil if no measurements" do
     member = members(:one)
-    metrics = MemberDataService.new(member).glucose_metrics
+    metrics = MemberDataService.new(member: member).glucose_metrics
 
     assert_equal({
       num_measurements: 0,
@@ -15,8 +15,8 @@ class MemberDataServiceTest < ActiveSupport::TestCase
 
   test "returns average, time below, and time above if there is one recent measurement" do
     member = members(:one)
-    member.measurements.create!(value: 40, tested_at: 1.day.ago, tz_offset: "+06:00")
-    metrics = MemberDataService.new(member).glucose_metrics
+    member.measurements.create!(value: 40, tested_at: 1.day.ago)
+    metrics = MemberDataService.new(member: member).glucose_metrics
 
     assert_equal({
       num_measurements: 1,
@@ -28,8 +28,8 @@ class MemberDataServiceTest < ActiveSupport::TestCase
 
   test "excludes measurements older than 1 week" do
     member = members(:one)
-    member.measurements.create!(value: 40, tested_at: 8.days.ago, tz_offset: "+06:00")
-    metrics = MemberDataService.new(member).glucose_metrics
+    member.measurements.create!(value: 40, tested_at: 8.days.ago)
+    metrics = MemberDataService.new(member: member).glucose_metrics
 
     assert_equal({
       num_measurements: 0,
@@ -41,11 +41,11 @@ class MemberDataServiceTest < ActiveSupport::TestCase
 
   test "averages across multiple measurements" do
     member = members(:one)
-    member.measurements.create!(value: 40, tested_at: 1.day.ago, tz_offset: "+06:00")
-    member.measurements.create!(value: 100, tested_at: 2.days.ago, tz_offset: "+06:00")
-    member.measurements.create!(value: 190, tested_at: 10.days.ago, tz_offset: "+06:00")
-    member.measurements.create!(value: 170, tested_at: 10.days.ago, tz_offset: "+06:00")
-    metrics = MemberDataService.new(member).glucose_metrics
+    member.measurements.create!(value: 40, tested_at: 1.day.ago)
+    member.measurements.create!(value: 100, tested_at: 2.days.ago)
+    member.measurements.create!(value: 190, tested_at: 10.days.ago)
+    member.measurements.create!(value: 170, tested_at: 10.days.ago)
+    metrics = MemberDataService.new(member: member).glucose_metrics
 
     assert_equal({
       num_measurements: 2,

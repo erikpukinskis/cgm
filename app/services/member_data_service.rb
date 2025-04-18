@@ -3,8 +3,7 @@ HIGH_VALUE = 180
 LOW_VALUE = 70
 
 class MemberDataService
-  def initialize(member:, current_time:)
-    puts "current_time: #{current_time}"
+  def initialize(member:, current_time: Time.now)
     @member = member
     @current_time = current_time
   end
@@ -33,12 +32,10 @@ class MemberDataService
       end
 
       if measurement.tested_at > start_of_last_7
-        puts "measurement.tested_at: #{measurement.tested_at} is in last 7: #{start_of_last_7}"
         week = add_glucose_measurement_to_metrics(week, measurement)
       end
 
       if measurement.tested_at > start_of_month
-        puts "measurement.tested_at: #{measurement.tested_at} is in month: #{start_of_month}"
         month = add_glucose_measurement_to_metrics(month, measurement)
       end
 
