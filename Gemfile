@@ -61,3 +61,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "pry", "~> 0.15.2", group: :development
+gem "csv"

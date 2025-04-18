@@ -1,5 +1,9 @@
 class HomeController < ApplicationController
   def index
+    @member_data = MemberDataService.new(
+      member: @member,
+      current_time: params[:mock_time] ? params[:mock_time].to_datetime : Time.now
+    )
     respond_to do |format|
       # When we redirect, from a turbo_stream request, Turbo will pull the page
       # we redirected to with an accept: text/vnd.turbo-stream.html header. If

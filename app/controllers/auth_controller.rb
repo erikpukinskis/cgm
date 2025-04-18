@@ -7,8 +7,8 @@ class AuthController < ApplicationController
     @member = Member.new(member_params)
 
     if @member.save
+      MetricsHelper.add_test_data(@member)
       sign_in_member(@member)
-
       flash[:notice] = "Welcome! Your account has been created."
       redirect_to root_path, status: :see_other
     else

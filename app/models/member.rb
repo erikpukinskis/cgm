@@ -6,4 +6,6 @@ class Member < ApplicationRecord
                    format: { with: URI::MailTo::EMAIL_REGEXP }
 
   validates :password, length: { minimum: 8 }, if: -> { new_record? || !password.nil? }
+
+  has_many :measurements, dependent: :destroy
 end
