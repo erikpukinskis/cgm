@@ -3,8 +3,10 @@ HIGH_VALUE = 180
 LOW_VALUE = 70
 
 class MemberDataService
-  def initialize(member)
+  def initialize(member:, current_time:)
+    puts "current_time: #{current_time}"
     @member = member
+    @current_time = current_time
   end
 
   def glucose_metrics
@@ -22,14 +24,26 @@ class MemberDataService
       time_above_range: nil
     }
 
-    @member.measurements.recent.each do |measurement|
-      # TODO: Handle tz_offset
-      if measurement.tested_at > 1.week.ago
+    start_of_last_7 = @current_time.beginning_of_day - 6.days
+    start_of_month = @current_time.beginning_of_month
+
+    @member.measurements.between(start_time: start_of_month, end_time: @current_time).each do |measurement|
+      if measurement.tested_at > @current_time
+        raise "measurement was in the future?"
+      end
+
+      if measurement.tested_at > start_of_last_7
+        puts "measurement.tested_at: #{measurement.tested_at} is in last 7: #{start_of_last_7}"
         week = add_glucose_measurement_to_metrics(week, measurement)
       end
 
-      if measurement.tested_at > 1.month.ago
+      if measurement.tested_at > start_of_month
+        puts "measurement.tested_at: #{measurement.tested_at} is in month: #{start_of_month}"
         month = add_glucose_measurement_to_metrics(month, measurement)
+      end
+
+      if measurement.tested_at < start_of_month
+        raise "measurement was before the query start time?"
       end
     end
 

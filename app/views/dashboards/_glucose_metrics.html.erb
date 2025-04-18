@@ -1,5 +1,5 @@
 <% [:week, :month].each do |period| %>
-  <h2><%= period == :week ? "Past Week" : "Past Month" %></h2>
+  <h2><%= period == :week ? "Past week" : "Past month" %></h2>
   <% if metrics[period][:num_measurements] < 1 %>
     <p>No data available for this period</p>
   <% else %>
@@ -8,7 +8,7 @@
         Measurements: <%= metrics[period][:num_measurements] %>
       </div>
       <div class="metrics-item">
-        Average Glucose: <%= metrics[period][:average_glucose_level] %> mg/dL
+        Average Glucose: <%= metrics[period][:average_glucose_level].round(1) %> mg/dL
       </div>
       <div class="metrics-item">
         Time Below Range: <%= (metrics[period][:time_below_range] * 100).round %>%
