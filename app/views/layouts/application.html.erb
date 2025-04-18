@@ -24,13 +24,27 @@
 
   <body>
     <nav>
-      <ul>  
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Join", auth_join_path %></li>
-        <li><%= link_to "Sign in", auth_sign_in_path %></li>
+      <ul>
+        <% if session[:member_email] %>
+          <li><%= session[:member_email] %></li>
+          <li><%= link_to "Sign out", auth_sign_out_path %></li>
+        <% else %>
+          <li><%= link_to "Join", auth_join_path %></li>
+          <li><%= link_to "Sign in", auth_sign_in_path %></li>
+        <% end %>
       </ul>
     </nav>
 
-    <%= yield %>
+    <% if flash.any? %>
+      <ul id="message-set">
+        <% flash.each do |key, value| %>
+          <li class="<%= key %>"><%= value %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <main id="main">
+      <%= yield %>
+    </main>
   </body>
 </html>
