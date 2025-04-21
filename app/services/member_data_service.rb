@@ -1,27 +1,48 @@
-require "pry"
+# typed: strict
+
 HIGH_VALUE = 180
 LOW_VALUE = 70
 
 class MemberDataService
+  extend T::Sig
+
+  sig { params(member: Member, current_time: Time).void }
   def initialize(member:, current_time: Time.now)
     @member = member
     @current_time = current_time
   end
 
-  def glucose_metrics
-    week = {
-      num_measurements: 0,
-      average_glucose_level: nil,
-      time_below_range: nil,
-      time_above_range: nil
+  GlucoseMetricsType = T.type_alias do
+    {
+      num_measurements: Integer,
+      average_glucose_level: T.nilable(Float),
+      time_below_range: T.nilable(Float),
+      time_above_range: T.nilable(Float)
     }
+  end
 
-    month = {
+  MetricsType = T.type_alias do
+    {
+      week: GlucoseMetricsType,
+      month: GlucoseMetricsType
+    }
+  end
+
+  sig { returns(MetricsType) }
+  def glucose_metrics
+    week = T.let({
       num_measurements: 0,
       average_glucose_level: nil,
       time_below_range: nil,
       time_above_range: nil
-    }
+    }, GlucoseMetricsType)
+
+    month = T.let({
+      num_measurements: 0,
+      average_glucose_level: nil,
+      time_below_range: nil,
+      time_above_range: nil
+    }, GlucoseMetricsType)
 
     start_of_last_7 = @current_time.beginning_of_day - 6.days
     start_of_month = @current_time.beginning_of_month
@@ -52,27 +73,22 @@ class MemberDataService
 
   private
 
+  sig { params(metrics: GlucoseMetricsType, measurement: Measurement).returns(GlucoseMetricsType) }
   def add_glucose_measurement_to_metrics(metrics, measurement)
-    new_metrics = {
-      time_above_range: 0,
-      time_below_range: 0
+    {
+      num_measurements: metrics[:num_measurements] + 1,
+      average_glucose_level: MetricsHelper.add_to_average(
+        average: metrics[:average_glucose_level],
+        previous_count: metrics[:num_measurements],
+        new_value: measurement.value),
+      time_above_range: MetricsHelper.add_to_average(
+        average: metrics[:time_above_range],
+        previous_count: metrics[:num_measurements],
+        new_value: measurement.value > HIGH_VALUE),
+      time_below_range: MetricsHelper.add_to_average(
+        average: metrics[:time_below_range],
+        previous_count: metrics[:num_measurements],
+        new_value: measurement.value < LOW_VALUE)
     }
-
-    new_metrics[:average_glucose_level] = MetricsHelper.add_to_average(
-      average: metrics[:average_glucose_level],
-      previous_count: metrics[:num_measurements],
-      new_value: measurement.value)
-    new_metrics[:time_below_range] = MetricsHelper.add_to_average(
-      average: metrics[:time_below_range],
-      previous_count: metrics[:num_measurements],
-      new_value: measurement.value < LOW_VALUE)
-    new_metrics[:time_above_range] = MetricsHelper.add_to_average(
-      average: metrics[:time_above_range],
-      previous_count: metrics[:num_measurements],
-      new_value: measurement.value > HIGH_VALUE)
-
-    new_metrics[:num_measurements] = metrics[:num_measurements] + 1
-
-    new_metrics
   end
 end
