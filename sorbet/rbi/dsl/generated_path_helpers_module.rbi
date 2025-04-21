@@ -19,10 +19,16 @@ module GeneratedPathHelpersModule
   def auth_sign_out_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def metrics_glucose_summary_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def oas_rails_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end

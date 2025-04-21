@@ -6,8 +6,8 @@ LOW_VALUE = 70
 class MemberDataService
   extend T::Sig
 
-  sig { params(member: Member, current_time: Time).void }
-  def initialize(member:, current_time: Time.now)
+  sig { params(member: Member, current_time: DateTime).void }
+  def initialize(member:, current_time: DateTime.now)
     @member = member
     @current_time = current_time
   end

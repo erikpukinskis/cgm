@@ -1,8 +1,10 @@
 class HomeController < ApplicationController
+  before_action :require_login
+
   def index
     @member_data = MemberDataService.new(
       member: @member,
-      current_time: params[:mock_time] ? params[:mock_time].to_datetime : Time.now
+      current_time: params[:mock_time] ? params[:mock_time].to_datetime : DateTime.now
     )
     respond_to do |format|
       # When we redirect, from a turbo_stream request, Turbo will pull the page

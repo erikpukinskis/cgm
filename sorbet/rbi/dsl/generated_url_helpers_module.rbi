@@ -19,10 +19,16 @@ module GeneratedUrlHelpersModule
   def auth_sign_out_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def metrics_glucose_summary_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def oas_rails_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end

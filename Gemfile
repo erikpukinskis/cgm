@@ -69,3 +69,5 @@ gem "csv"
 gem "sorbet-static-and-runtime", group: :development
 gem "sorbet-runtime"
 gem "tapioca", require: false, group: [ :development, :test ]
+
+gem "oas_rails", "~> 0.13.0"

@@ -12,10 +12,19 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
+  # Docs
+  mount OasRails::Engine => "/docs"
+
   # Auth
   get "auth/join", to: "auth#join_form"
   post "auth/join", to: "auth#join"
   get "auth/sign_in", to: "auth#sign_in_form"
   post "auth/sign_in", to: "auth#sign_in"
   get "auth/sign_out", to: "auth#sign_out"
+
+  scope "api" do
+    scope "v1" do
+      get "metrics/glucose_summary", to: "metrics#glucose_summary"
+    end
+  end
 end

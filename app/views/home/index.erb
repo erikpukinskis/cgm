@@ -3,8 +3,11 @@
   <%= render "dashboards/glucose_metrics", metrics: @member_data.glucose_metrics %>
 
   <div class="debug-info">
-    <h2>Debug info</h2>
-    <p><%= @member.measurements.count %> measurements</p>
+    <h2>Debug Info</h2>
+    <p>
+      <%= @member.measurements.count %> measurements
+      &middot;
+      <a href="/api/v1/metrics/glucose_summary?user_id=<%= @member.id %>&preceding_timestamp=<%= Time.now.beginning_of_hour.iso8601 %>">View as API response</a></p>
 
     <form method="get" action="">
       <input type="datetime-local" id="mock_time" name="mock_time" value="<%= params[:mock_time] || Time.now.strftime("%Y-%m-%dT%H:%M") %>">

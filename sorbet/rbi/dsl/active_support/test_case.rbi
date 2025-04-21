@@ -10,4 +10,14 @@ class ActiveSupport::TestCase
   sig { params(fixture_name: T.any(String, Symbol), other_fixtures: NilClass).returns(Member) }
   sig { params(fixture_name: T.any(String, Symbol), other_fixtures: T.any(String, Symbol)).returns(T::Array[Member]) }
   def members(fixture_name = nil, *other_fixtures); end
+
+  sig { params(fixture_name: NilClass, other_fixtures: NilClass).returns(T::Array[Metrics::GlucoseSummary]) }
+  sig { params(fixture_name: T.any(String, Symbol), other_fixtures: NilClass).returns(Metrics::GlucoseSummary) }
+  sig do
+    params(
+      fixture_name: T.any(String, Symbol),
+      other_fixtures: T.any(String, Symbol)
+    ).returns(T::Array[Metrics::GlucoseSummary])
+  end
+  def metrics_glucose_summaries(fixture_name = nil, *other_fixtures); end
 end
