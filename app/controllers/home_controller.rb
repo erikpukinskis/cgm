@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   def index
     @glucose_metrics = Metrics::GlucoseSummary.find_or_queue(
       member: @member,
-      preceding_timestamp: params[:mock_time] ? params[:mock_time].to_datetime : DateTime.now
+      preceding_timestamp: params[:mock_time] ? params[:mock_time].to_datetime : DateTime.now.beginning_of_hour
     )
 
     respond_to do |format|
