@@ -64,3 +64,8 @@ end
 
 gem "pry", "~> 0.15.2", group: :development
 gem "csv"
+
+# Sorbet
+gem "sorbet-static-and-runtime", group: :development
+gem "sorbet-runtime"
+gem "tapioca", require: false, group: [ :development, :test ]
