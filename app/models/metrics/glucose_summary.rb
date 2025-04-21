@@ -17,6 +17,9 @@ class Metrics::GlucoseSummary < ApplicationRecord
   sig { params(member: Member, preceding_timestamp: DateTime).returns({ week: Metrics::GlucoseSummary, month: Metrics::GlucoseSummary }) }
   def self.create_all_for_timestamp!(member:, preceding_timestamp:)
     week = Metrics::GlucoseSummary.new(
+      member: member,
+      preceding_timestamp: preceding_timestamp,
+      period: :week,
       num_measurements: 0,
       average_glucose_level: nil,
       time_below_range: nil,
@@ -24,6 +27,9 @@ class Metrics::GlucoseSummary < ApplicationRecord
     )
 
     month = Metrics::GlucoseSummary.new(
+      member: member,
+      preceding_timestamp: preceding_timestamp,
+      period: :month,
       num_measurements: 0,
       average_glucose_level: nil,
       time_below_range: nil,
@@ -39,11 +45,11 @@ class Metrics::GlucoseSummary < ApplicationRecord
       end
 
       if measurement.tested_at > start_of_last_7
-        week = add_glucose_measurement_to_metrics(week, measurement)
+        add_measurement(week, measurement)
       end
 
       if measurement.tested_at > start_of_month
-        month = add_glucose_measurement_to_metrics(month, measurement)
+        add_measurement(month, measurement)
       end
 
       if measurement.tested_at < start_of_month
@@ -51,9 +57,12 @@ class Metrics::GlucoseSummary < ApplicationRecord
       end
     end
 
+    week.save!
+    month.save!
+
     {
-      week: week.save!,
-      month: month.save!
+      week: week,
+      month: month
     }
   end
 
@@ -105,23 +114,21 @@ class Metrics::GlucoseSummary < ApplicationRecord
   # Helper function that adds an additional glucose measurement to the given metrics.
   # @param metrics [Metrics::GlucoseSummary] The previous metrics to update
   # @param measurement [Measurement] The new measurement to add
-  # @return [Metrics::GlucoseSummary] A new GlucoseSummary model with the updated metrics (unsaved)
-  sig { params(metrics: Metrics::GlucoseSummary, measurement: Measurement).returns(Metrics::GlucoseSummary) }
-  def self.add_glucose_measurement_to_metrics(metrics, measurement)
-    Metrics::GlucoseSummary.new(
-      num_measurements: metrics[:num_measurements] + 1,
-      average_glucose_level: MetricsHelper.add_to_average(
-        average: metrics[:average_glucose_level],
-        previous_count: metrics[:num_measurements],
-        new_value: measurement.value),
-      time_above_range: MetricsHelper.add_to_average(
-        average: metrics[:time_above_range],
-        previous_count: metrics[:num_measurements],
-        new_value: measurement.value > HIGH_GLUCOSE_VALUE),
-      time_below_range: MetricsHelper.add_to_average(
-        average: metrics[:time_below_range],
-        previous_count: metrics[:num_measurements],
-        new_value: measurement.value < LOW_GLUCOSE_VALUE)
-    )
+  sig { params(metrics: Metrics::GlucoseSummary, measurement: Measurement).void }
+  def self.add_measurement(metrics, measurement)
+    metrics.average_glucose_level = MetricsHelper.add_to_average(
+      average: metrics[:average_glucose_level],
+      previous_count: metrics[:num_measurements],
+      new_value: measurement.value)
+    metrics.time_above_range = MetricsHelper.add_to_average(
+      average: metrics[:time_above_range],
+      previous_count: metrics[:num_measurements],
+      new_value: measurement.value > HIGH_GLUCOSE_VALUE)
+    metrics.time_below_range = MetricsHelper.add_to_average(
+      average: metrics[:time_below_range],
+      previous_count: metrics[:num_measurements],
+      new_value: measurement.value < LOW_GLUCOSE_VALUE)
+
+    metrics.num_measurements += 1
   end
 end

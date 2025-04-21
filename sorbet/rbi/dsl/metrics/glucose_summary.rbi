@@ -629,10 +629,10 @@ class Metrics::GlucoseSummary
   end
 
   module GeneratedAttributeMethods
-    sig { returns(::Float) }
+    sig { returns(T.nilable(::Float)) }
     def average_glucose_level; end
 
-    sig { params(value: ::Float).returns(::Float) }
+    sig { params(value: T.nilable(::Float)).returns(T.nilable(::Float)) }
     def average_glucose_level=(value); end
 
     sig { returns(T::Boolean) }
@@ -647,22 +647,22 @@ class Metrics::GlucoseSummary
     sig { returns(T::Boolean) }
     def average_glucose_level_came_from_user?; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def average_glucose_level_change; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def average_glucose_level_change_to_be_saved; end
 
-    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
     def average_glucose_level_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def average_glucose_level_in_database; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def average_glucose_level_previous_change; end
 
-    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
     def average_glucose_level_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
@@ -1032,7 +1032,7 @@ class Metrics::GlucoseSummary
     sig { void }
     def restore_updated_at!; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def saved_change_to_average_glucose_level; end
 
     sig { returns(T::Boolean) }
@@ -1080,13 +1080,13 @@ class Metrics::GlucoseSummary
     sig { returns(T::Boolean) }
     def saved_change_to_preceding_timestamp?; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def saved_change_to_time_above_range; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_time_above_range?; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def saved_change_to_time_below_range; end
 
     sig { returns(T::Boolean) }
@@ -1098,10 +1098,10 @@ class Metrics::GlucoseSummary
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
 
-    sig { returns(::Float) }
+    sig { returns(T.nilable(::Float)) }
     def time_above_range; end
 
-    sig { params(value: ::Float).returns(::Float) }
+    sig { params(value: T.nilable(::Float)).returns(T.nilable(::Float)) }
     def time_above_range=(value); end
 
     sig { returns(T::Boolean) }
@@ -1116,22 +1116,22 @@ class Metrics::GlucoseSummary
     sig { returns(T::Boolean) }
     def time_above_range_came_from_user?; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def time_above_range_change; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def time_above_range_change_to_be_saved; end
 
-    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
     def time_above_range_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def time_above_range_in_database; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def time_above_range_previous_change; end
 
-    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
     def time_above_range_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
@@ -1143,10 +1143,10 @@ class Metrics::GlucoseSummary
     sig { void }
     def time_above_range_will_change!; end
 
-    sig { returns(::Float) }
+    sig { returns(T.nilable(::Float)) }
     def time_below_range; end
 
-    sig { params(value: ::Float).returns(::Float) }
+    sig { params(value: T.nilable(::Float)).returns(T.nilable(::Float)) }
     def time_below_range=(value); end
 
     sig { returns(T::Boolean) }
@@ -1161,22 +1161,22 @@ class Metrics::GlucoseSummary
     sig { returns(T::Boolean) }
     def time_below_range_came_from_user?; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def time_below_range_change; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def time_below_range_change_to_be_saved; end
 
-    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
     def time_below_range_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def time_below_range_in_database; end
 
-    sig { returns(T.nilable([::Float, ::Float])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def time_below_range_previous_change; end
 
-    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
     def time_below_range_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
