@@ -9,14 +9,14 @@ class CalculateMetrics::GlucoseSummaryJob
   class << self
     sig do
       params(
-        user_id: ::Integer,
+        member_id: ::Integer,
         preceding_timestamp: ::DateTime,
         block: T.nilable(T.proc.params(job: CalculateMetrics::GlucoseSummaryJob).void)
       ).returns(T.any(CalculateMetrics::GlucoseSummaryJob, FalseClass))
     end
-    def perform_later(user_id:, preceding_timestamp:, &block); end
+    def perform_later(member_id:, preceding_timestamp:, &block); end
 
-    sig { params(user_id: ::Integer, preceding_timestamp: ::DateTime).void }
-    def perform_now(user_id:, preceding_timestamp:); end
+    sig { params(member_id: ::Integer, preceding_timestamp: ::DateTime).void }
+    def perform_now(member_id:, preceding_timestamp:); end
   end
 end

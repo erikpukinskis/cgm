@@ -58,7 +58,7 @@ class MetricsController < ApplicationController
   #   }
 
   def glucose_summary
-    Metrics::GlucoseSummary.generate_if_needed!(
+    Metrics::GlucoseSummary.queue_if_needed!(
       member: @member,
       preceding_timestamp: params[:preceding_timestamp].to_datetime)
 

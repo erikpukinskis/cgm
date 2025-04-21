@@ -31,6 +31,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_221526) do
   create_table "metrics_glucose_summaries", force: :cascade do |t|
     t.integer "member_id", null: false
     t.datetime "preceding_timestamp", null: false
+    t.integer "period", null: false
     t.integer "num_measurements", null: false
     t.float "average_glucose_level", null: false
     t.float "time_below_range", null: false

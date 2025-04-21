@@ -8,6 +8,7 @@
 class Metrics::GlucoseSummary
   include GeneratedAssociationMethods
   include GeneratedAttributeMethods
+  include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -24,6 +25,9 @@ class Metrics::GlucoseSummary
       ).returns(::Metrics::GlucoseSummary)
     end
     def new(attributes = nil, &block); end
+
+    sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
+    def periods; end
   end
 
   module CommonRelationMethods
@@ -420,6 +424,20 @@ class Metrics::GlucoseSummary
     def third_to_last!; end
   end
 
+  module EnumMethodsModule
+    sig { void }
+    def month!; end
+
+    sig { returns(T::Boolean) }
+    def month?; end
+
+    sig { void }
+    def week!; end
+
+    sig { returns(T::Boolean) }
+    def week?; end
+  end
+
   module GeneratedAssociationMethods
     sig { params(args: T.untyped, blk: T.untyped).returns(::Member) }
     def build_member(*args, &blk); end
@@ -520,7 +538,16 @@ class Metrics::GlucoseSummary
     def merge(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def month(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def none(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def not_month(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def not_week(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def null_relation?(*args, &blk); end
@@ -583,6 +610,9 @@ class Metrics::GlucoseSummary
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def unscope(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def week(*args, &blk); end
 
     sig { returns(PrivateAssociationRelationWhereChain) }
     sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
@@ -869,6 +899,61 @@ class Metrics::GlucoseSummary
     sig { void }
     def num_measurements_will_change!; end
 
+    sig { returns(::String) }
+    def period; end
+
+    sig { params(value: T.any(::String, ::Symbol, ::Integer)).returns(T.any(::String, ::Symbol, ::Integer)) }
+    def period=(value); end
+
+    sig { returns(T::Boolean) }
+    def period?; end
+
+    sig { returns(T.nilable(::String)) }
+    def period_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def period_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def period_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def period_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def period_change_to_be_saved; end
+
+    sig do
+      params(
+        from: T.any(::String, ::Symbol, ::Integer),
+        to: T.any(::String, ::Symbol, ::Integer)
+      ).returns(T::Boolean)
+    end
+    def period_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def period_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def period_previous_change; end
+
+    sig do
+      params(
+        from: T.any(::String, ::Symbol, ::Integer),
+        to: T.any(::String, ::Symbol, ::Integer)
+      ).returns(T::Boolean)
+    end
+    def period_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def period_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def period_was; end
+
+    sig { void }
+    def period_will_change!; end
+
     sig { returns(::ActiveSupport::TimeWithZone) }
     def preceding_timestamp; end
 
@@ -933,6 +1018,9 @@ class Metrics::GlucoseSummary
     def restore_num_measurements!; end
 
     sig { void }
+    def restore_period!; end
+
+    sig { void }
     def restore_preceding_timestamp!; end
 
     sig { void }
@@ -979,6 +1067,12 @@ class Metrics::GlucoseSummary
 
     sig { returns(T::Boolean) }
     def saved_change_to_num_measurements?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_period; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_period?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_preceding_timestamp; end
@@ -1158,6 +1252,9 @@ class Metrics::GlucoseSummary
     def will_save_change_to_num_measurements?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_period?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_preceding_timestamp?; end
 
     sig { returns(T::Boolean) }
@@ -1241,7 +1338,16 @@ class Metrics::GlucoseSummary
     def merge(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def month(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def none(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def not_month(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def not_week(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def null_relation?(*args, &blk); end
@@ -1304,6 +1410,9 @@ class Metrics::GlucoseSummary
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def unscope(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def week(*args, &blk); end
 
     sig { returns(PrivateRelationWhereChain) }
     sig { params(args: T.untyped).returns(PrivateRelation) }

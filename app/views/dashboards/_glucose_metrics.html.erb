@@ -1,6 +1,8 @@
 <% [:week, :month].each do |period| %>
   <h2><%= period == :week ? "Past week" : "Past month" %></h2>
-  <% if metrics[period][:num_measurements] < 1 %>
+  <% if metrics[period].nil? %>
+    <p>Computing...</p>
+  <% elsif metrics[period][:num_measurements] < 1 %>
     <p>No data available for this period</p>
   <% else %>
     <div class="metrics">
