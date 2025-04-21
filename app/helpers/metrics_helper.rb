@@ -1,6 +1,7 @@
 require "csv"
 
 module MetricsHelper
+  # Calculate the new running average of a series. Using a dynamic programming approach for speed.
   def self.add_to_average(average:, previous_count:, new_value:)
     if new_value == true
       new_value = 1.0
@@ -19,8 +20,6 @@ module MetricsHelper
     csv_path = Rails.root.join("test/fixtures/files/cgm_data_points.csv")
 
     CSV.foreach(csv_path, headers: true) do |row|
-      Pry::ColorPrinter.pp(row: row)
-
       tested_at = self.parse_time(row)
 
       if tested_at.nil?
