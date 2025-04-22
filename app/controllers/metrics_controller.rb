@@ -58,23 +58,26 @@ class MetricsController < ApplicationController
   #   }
 
   def glucose_summary
+    # TODO: The API needs to require API keys, and those API keys need to be scoped to correct members.
+    member = Member.find(params[:member_id])
+
     summary = Metrics::GlucoseSummary.find_or_queue(
-      member: @member,
+      member: member,
       preceding_timestamp: params[:preceding_timestamp].to_datetime)
 
     if summary[:week].nil? || summary[:month].nil?
       return render json: {
         status: "processing",
         params: {
-          member_id: @member.id,
+          member_id: member.id,
           preceding_timestamp: params[:preceding_timestamp]
         }
-      }
+      }, status: :accepted
     end
 
     render json: {
       status: "success",
       data: summary
-    }
+    }, status: :ok
   end
 end

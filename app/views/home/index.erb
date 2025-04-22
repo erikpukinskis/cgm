@@ -7,7 +7,7 @@
     <p>
       <%= @member.measurements.count %> measurements
       &middot;
-      <a href="/api/v1/metrics/glucose_summary?user_id=<%= @member.id %>&preceding_timestamp=<%= Time.now.beginning_of_hour.iso8601 %>">View as API response</a></p>
+      <a href="<%= metrics_glucose_summary_url(member_id: @member.id, preceding_timestamp: @preceding_timestamp) %>">View as API response</a></p>
 
     <form method="get" action="">
       <input type="datetime-local" id="mock_time" name="mock_time" value="<%= params[:mock_time] || Time.now.strftime("%Y-%m-%dT%H:%M") %>">
