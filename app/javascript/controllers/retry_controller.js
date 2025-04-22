@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 /**
  * This Stimulus controller can be used to refresh a turbo frame once a second.
- * 
+ *
  * Usage:
  *       <turbo-frame id="some_unique_id" >
  *         <div

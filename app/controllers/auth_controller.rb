@@ -1,4 +1,5 @@
 class AuthController < ApplicationController
+  # TODO(erik): YARD comments in this file & type check
   def join_form
     @member = Member.new
   end

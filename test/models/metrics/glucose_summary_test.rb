@@ -13,8 +13,14 @@ class Metrics::GlucoseSummaryTest < ActiveSupport::TestCase
     })
   end
 
+  # TODO(erik): I wonder if we need some more careful tests here for the week/month
+  # start times, especially if we care about timezones.
+
   test "returns average, time below, and time above if there is one recent measurement" do
     member = members(:one)
+    # TODO(erik): This 1.day.ago thing works, but I would be a little concerned
+    # about how it behaves near midnight. I would prefer to mock the clock and
+    # use specific timetamps.
     member.measurements.create!(value: 40, tested_at: 1.day.ago)
     metrics = Metrics::GlucoseSummary.create_all_for_timestamp!(member: member, preceding_timestamp: DateTime.now)
 

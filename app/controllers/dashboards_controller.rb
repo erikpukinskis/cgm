@@ -1,4 +1,5 @@
 class DashboardsController < ApplicationController
+  # TODO(erik): YARD comments explaining relationship to metric#glucose_summary action
   def glucose_metrics
     metrics = Metrics::GlucoseSummary.find_or_queue(
       member: @member,

@@ -9,123 +9,134 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
- body {
-    font-family: 'Inter', sans-serif;
-    margin: 0px 20px 100px 20px
- }
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0px 20px 100px 20px
+}
 
- p {
-   line-height: 1.5;
-   margin: 10px 0;
- }
+/** TODO(erik): Move to typography.css */
+p {
+  line-height: 1.5;
+  margin: 10px 0;
+}
 
- a {
-   color: #088;
- }
+a {
+  color: #088;
+}
 
- h1 {
-   font-weight: normal;
-   margin: 10px 0 15px 0;
- }
+h1 {
+  font-weight: normal;
+  margin: 10px 0 15px 0;
+}
 
- h2 {
-   font-weight: normal;
-   margin: 10px 0 15px 0;
- }
+h2 {
+  font-weight: normal;
+  margin: 10px 0 15px 0;
+}
 
- nav {
-    text-align: right;
-    padding: 10px;
- }
+/** TODO(erik): Move to nav.css */
+nav {
+  text-align: right;
+  padding: 10px;
+}
 
- nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
- }
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
- nav li {
-    display: inline-block;
-    margin-left: 10px;
- }
+nav li {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/** TODO(erik): Move to forms.css */
 
 .field-set {
-   display: flex;
-   flex-direction: column;
-   gap: 10px;
-   max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
 }
 
 .field {
-   display: flex;
-   flex-direction: column;
-   gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.field input[type=text], .field input[type=email], .field input[type=password] {
-   font-size: 1em;
-   padding: 5px;
-   width: 100%;
+.field input[type=text],
+.field input[type=email],
+.field input[type=password] {
+  font-size: 1em;
+  padding: 5px;
+  width: 100%;
 }
 
 .actions {
-   margin-top: 20px;
+  margin-top: 20px;
 }
 
-.button, .actions input[type="submit"] {
-   font-size: 1em;
-   border: none;
-   padding: 10px 15px;
-   background-color: #000;
-   color: #fff;
-   cursor: pointer;
-   border-radius: 5px;
-   text-decoration: none;
+.button,
+.actions input[type="submit"] {
+  font-size: 1em;
+  border: none;
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
-.button:hover, .actions input[type="submit"]:hover {
-   background-color: #666;
+.button:hover,
+.actions input[type="submit"]:hover {
+  background-color: #666;
 }
 
+/** TODO(erik): Move to reset.css */
 ul {
-   padding: 0
+  padding: 0
 }
 
+/** TODO(erik): Move to layout.css */
 .message-set {
-   display: flex;
-   flex-direction: column;
-   gap: 10px;
-   max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
 }
 
 .error-message {
-   color: white;
-   background: rgb(255, 137, 122);
-   padding: 10px;
-   border-radius: 5px;  
+  color: white;
+  background: rgb(255, 137, 122);
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .notice {
-   color: white;
-   background: rgb(55, 185, 128);
-   padding: 10px;
-   border-radius: 5px;  
+  color: white;
+  background: rgb(55, 185, 128);
+  padding: 10px;
+  border-radius: 5px;
 }
 
+/** TODO(erik): Move to debug.css */
 .debug-info {
-   opacity: 0.6;
-   border: 1px solid #088;
-   color: #088;
-   padding: 10px 20px;
-   border-radius: 5px;
-   margin-top: 100px;
+  opacity: 0.6;
+  border: 1px solid #088;
+  color: #088;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 100px;
 }
 
 .debug-info input {
-   font-size: 1em;
-   border: 1px solid #088;
-   padding: 5px;
-   color: #088;
-   border-radius: 5px;
-   background: none;
+  font-size: 1em;
+  border: 1px solid #088;
+  padding: 5px;
+  color: #088;
+  border-radius: 5px;
+  background: none;
 }
