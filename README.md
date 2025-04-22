@@ -29,4 +29,6 @@ bin/tapioca gem actionmailer
 ## Todo
 
  - [ ] The Sign In page doesn't do any error handling. Need to follow the same pattern we use on Join Page
+ - [ ] Need auth on the API!!!
+ - [ ] Should obfuscate user ids with hashid
  - [ ] Might be nice to add [mission_control-jobs](https://github.com/rails/mission_control-jobs) for observability
