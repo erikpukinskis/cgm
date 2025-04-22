@@ -27,4 +27,8 @@ Rails.application.routes.draw do
       get "metrics/glucose_summary", to: "metrics#glucose_summary"
     end
   end
+
+  scope "dashboards" do
+    get "glucose_metrics", to: "dashboards#glucose_metrics"
+  end
 end

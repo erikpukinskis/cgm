@@ -58,16 +58,11 @@ class MetricsController < ApplicationController
   #   }
 
   def glucose_summary
-    Metrics::GlucoseSummary.queue_if_needed!(
+    summary = Metrics::GlucoseSummary.find_or_queue(
       member: @member,
       preceding_timestamp: params[:preceding_timestamp].to_datetime)
 
-    summary = Metrics::GlucoseSummary.where(
-      member: @member,
-      preceding_timestamp:
-      params[:preceding_timestamp]).first
-
-    if summary.nil?
+    if summary[:week].nil? || summary[:month].nil?
       return render json: {
         status: "processing",
         params: {

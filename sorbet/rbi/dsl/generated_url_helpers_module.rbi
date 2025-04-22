@@ -19,6 +19,9 @@ module GeneratedUrlHelpersModule
   def auth_sign_out_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def glucose_metrics_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def metrics_glucose_summary_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

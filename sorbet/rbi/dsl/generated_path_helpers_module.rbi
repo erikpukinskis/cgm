@@ -19,6 +19,9 @@ module GeneratedPathHelpersModule
   def auth_sign_out_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def glucose_metrics_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def metrics_glucose_summary_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

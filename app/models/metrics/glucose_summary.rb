@@ -76,6 +76,7 @@ class Metrics::GlucoseSummary < ApplicationRecord
   # @return [Hash{ week: Metrics::GlucoseSummary, month: Metrics::GlucoseSummary }] The summaries, grouped by period
   sig { params(member: Member, preceding_timestamp: DateTime).returns({ week: T.nilable(Metrics::GlucoseSummary), month: T.nilable(Metrics::GlucoseSummary)  }) }
   def self.find_or_queue(member:, preceding_timestamp:)
+    preceding_timestamp = preceding_timestamp.at_beginning_of_hour
     # Check if a summary already exists
     week = Metrics::GlucoseSummary.where(
       period: :week,
