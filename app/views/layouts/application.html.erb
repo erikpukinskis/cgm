@@ -25,10 +25,12 @@
   <body>
     <nav>
       <ul>
-        <% if session[:member_email] %>
-          <li><%= session[:member_email] %></li>
+        <% if @member %>
+          <li><%= @member.email %></li>
+          <li><%= link_to "Docs", "/docs" %></li>
           <li><%= link_to "Sign out", auth_sign_out_path %></li>
         <% else %>
+          <li><%= link_to "Docs", "/docs" %></li>
           <li><%= link_to "Join", auth_join_path %></li>
           <li><%= link_to "Sign in", auth_sign_in_path %></li>
         <% end %>

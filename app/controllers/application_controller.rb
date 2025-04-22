@@ -11,4 +11,10 @@ class ApplicationController < ActionController::Base
       @member = Member.find_by(email: session[:member_email])
     end
   end
+
+  def require_login
+    unless @member
+      redirect_to auth_sign_in_path
+    end
+  end
 end

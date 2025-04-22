@@ -1,9 +1,15 @@
+# typed: true
+
 class HomeController < ApplicationController
+  before_action :require_login
+
   def index
-    @member_data = MemberDataService.new(
+    @preceding_timestamp = params[:mock_time] ? params[:mock_time].to_datetime : DateTime.now.beginning_of_hour
+    @glucose_metrics = Metrics::GlucoseSummary.find_or_queue(
       member: @member,
-      current_time: params[:mock_time] ? params[:mock_time].to_datetime : Time.now
+      preceding_timestamp: @preceding_timestamp
     )
+
     respond_to do |format|
       # When we redirect, from a turbo_stream request, Turbo will pull the page
       # we redirected to with an accept: text/vnd.turbo-stream.html header. If

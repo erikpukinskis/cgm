@@ -1,21 +1,34 @@
-<% [:week, :month].each do |period| %>
-  <h2><%= period == :week ? "Past week" : "Past month" %></h2>
-  <% if metrics[period][:num_measurements] < 1 %>
-    <p>No data available for this period</p>
-  <% else %>
-    <div class="metrics">
-      <div class="metrics-item">
-        Measurements: <%= metrics[period][:num_measurements] %>
-      </div>
-      <div class="metrics-item">
-        Average Glucose: <%= metrics[period][:average_glucose_level].round(1) %> mg/dL
-      </div>
-      <div class="metrics-item">
-        Time Below Range: <%= (metrics[period][:time_below_range] * 100).round %>%
-      </div>
-      <div class="metrics-item">
-        Time Above Range: <%= (metrics[period][:time_above_range] * 100).round %>%
-      </div>
-    </div>
-  <% end %>
-<% end %>
+<turbo-frame
+  id="glucose_metrics_container"
+>
+  <div
+    data-controller="retry"
+    data-frame="glucose_metrics_container"
+    data-src="<%= url_for(glucose_metrics_path(preceding_timestamp: preceding_timestamp)) %>"
+    data-enabled="<%= metrics[:week].nil? || metrics[:month].nil? %>"
+  >
+    <% [:week, :month].each do |period| %>
+      <h2><%= period == :week ? "Past week" : "Past month" %></h2>
+      <% if metrics[period].nil? %>
+        <p>Computing...</p>
+      <% elsif metrics[period][:num_measurements] < 1 %>
+        <p>No data available for this period</p>
+      <% else %>
+        <div class="metrics">
+          <div class="metrics-item">
+            Measurements: <%= metrics[period][:num_measurements] %>
+          </div>
+          <div class="metrics-item">
+            Average Glucose: <%= metrics[period][:average_glucose_level].round(1) %> mg/dL
+          </div>
+          <div class="metrics-item">
+            Time Below Range: <%= (metrics[period][:time_below_range] * 100).round %>%
+          </div>
+          <div class="metrics-item">
+            Time Above Range: <%= (metrics[period][:time_above_range] * 100).round %>%
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</turbo-frame>
