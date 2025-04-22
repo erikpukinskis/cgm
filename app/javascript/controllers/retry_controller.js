@@ -1,5 +1,20 @@
 import { Controller } from "@hotwired/stimulus"
 
+/**
+ * This Stimulus controller can be used to refresh a turbo frame once a second.
+ * 
+ * Usage:
+ *       <turbo-frame id="some_unique_id" >
+ *         <div
+ *           data-controller="retry"
+ *           data-frame="some_unique_id"
+ *           data-url="<%= url_to_poll %>"
+ *           data-enabled="<%= content_is_ready? %>"
+ *         >
+ *           Your content here
+ *         </div>
+ *       </turbo-frame>
+ */
 class RetryController extends Controller {
   connect() {
     this.poll()
@@ -12,25 +27,35 @@ class RetryController extends Controller {
   }
 
   poll() {
-    const timestamp = new URLSearchParams(window.location.search).get('mock_time') || new Date().toISOString()
+    const turboFrameId = this.element.dataset.frame
 
-    this.frameTarget = document.getElementById('glucose_metrics_display');
-
-    if (this.frameTarget) {
-      setTimeout(() => {
-        this.frameTarget.src = `/dashboards/glucose_metrics?preceding_timestamp=${timestamp}`;
-      }, 1000)
-      // Turbo automatically loads the src when it's set
+    if (!turboFrameId) {
+      throw new Error(`RetryController requires a data-frame attribute with the id of the turbo frame to refresh.`)
     }
 
-    // this.timeout = setTimeout(async () => {
-    //   // Turbo automatically processes the stream response, no need to handle the response.
-    //   await fetch(`/dashboards/glucose_metrics?preceding_timestamp=${timestamp}`, {
-    //     headers: {
-    //       'Accept': 'text/vnd.turbo-stream.html' // <--- Explicitly request Turbo Stream
-    //     }
-    //   })
-    // }, 5000)
+    const turboFrame = document.getElementById(turboFrameId);
+
+    if (!turboFrame) {
+      throw new Error(`RetryController can't retry... no turbo-frame with id "${turboFrameId}" found.`)
+    }
+
+    const src = this.element.dataset.src
+
+    if (!src) {
+      throw new Error(`RetryController requires a data-src attribute with the url to retry.`)
+    }
+
+    const enabled = this.element.dataset.enabled
+
+    // For simplicity in rendering, it's sometimes easier to disable the retry controller with a boolean.
+    if (enabled === "false") {
+      return
+    }
+
+    // If everything is ready, all we need to do is wait 1s and Turbo will refresh the content when we set the src.
+    setTimeout(() => {
+      turboFrame.src = src
+    }, 1000)
   }
 }
 

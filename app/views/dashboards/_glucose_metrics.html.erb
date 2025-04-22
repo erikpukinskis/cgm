@@ -1,5 +1,12 @@
-<turbo-frame id="glucose_metrics_display">
-  <div id="glucose_metrics_container" data-controller="<%= metrics[:week].nil? || metrics[:month].nil? ? "retry" : nil %>">
+<turbo-frame
+  id="glucose_metrics_container"
+>
+  <div
+    data-controller="retry"
+    data-frame="glucose_metrics_container"
+    data-src="<%= url_for(glucose_metrics_path(preceding_timestamp: preceding_timestamp)) %>"
+    data-enabled="<%= metrics[:week].nil? || metrics[:month].nil? %>"
+  >
     <% [:week, :month].each do |period| %>
       <h2><%= period == :week ? "Past week" : "Past month" %></h2>
       <% if metrics[period].nil? %>

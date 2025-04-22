@@ -7,7 +7,9 @@ class DashboardsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render partial: "dashboards/glucose_metrics", locals: { metrics: metrics }
+        render partial: "dashboards/glucose_metrics", locals: {
+          metrics: metrics,
+          preceding_timestamp: params[:preceding_timestamp] }
       end
     end
   end

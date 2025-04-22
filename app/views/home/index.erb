@@ -1,6 +1,6 @@
 <% if @member %>
   <h1>Your blood glucose levels</h1>
-    <%= render 'dashboards/glucose_metrics', metrics: @glucose_metrics %>
+    <%= render 'dashboards/glucose_metrics', metrics: @glucose_metrics, preceding_timestamp: @preceding_timestamp %>
 
   <div class="debug-info">
     <h2>Debug Info</h2>
